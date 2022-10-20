@@ -11,7 +11,7 @@
         </div>
 
         <div class="container">
-            <form action=" {{ route('students.update', $student) }} " method="POST">
+            <form action=" {{ route('admin.students.update', $student) }} " method="POST">
                 @csrf
                 @method('PUT')
 

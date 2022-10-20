@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Student;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class StudentController extends Controller
 {
@@ -16,7 +17,7 @@ class StudentController extends Controller
     {
         $students = Student::orderBy('registration_number', 'desc')->limit(50)->get();
 
-        return view('students.index', compact('students'));
+        return view('admin.students.index', compact('students'));
     }
 
     /**
@@ -26,7 +27,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('students.create');
+        return view('admin.students.create');
     }
 
     /**
@@ -53,7 +54,7 @@ class StudentController extends Controller
         // $student->fill($params);
         $student = Student::create($params);
 
-        return redirect()->route('students.show', $student);
+        return redirect()->route('admin.students.show', $student);
     }
 
     /**
@@ -64,7 +65,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        return view('students.show', compact('student'));
+        return view('admin.students.show', compact('student'));
     }
 
     /**
@@ -75,7 +76,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        return view('students.edit', compact('student'));
+        return view('admin.students.edit', compact('student'));
     }
 
     /**
@@ -98,7 +99,7 @@ class StudentController extends Controller
         $params['registration_number'] = $student->registration_number;
         $student->update($params);
 
-        return redirect()->route('students.show', $student);
+        return redirect()->route('admin.students.show', $student);
     }
 
     /**
