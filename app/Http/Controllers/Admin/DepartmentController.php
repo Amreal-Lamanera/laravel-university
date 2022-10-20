@@ -3,10 +3,11 @@
 // creato con: php artisan make:controller DepartmentController -r
 // laravel con il comando -r ci scrive in automatico tutti i metodi del crud
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Department;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DepartmentController extends Controller
 {
@@ -20,7 +21,7 @@ class DepartmentController extends Controller
         $departments = Department::all();
 
         // dd($departments);
-        return view('departments.index', compact('departments'));
+        return view('admin.departments.index', compact('departments'));
     }
 
     /**
@@ -30,7 +31,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('departments.create');
+        return view('admin.departments.create');
     }
 
     /**
@@ -82,7 +83,7 @@ class DepartmentController extends Controller
         // DA NON CONFONDERE con il metodo create (non statico) presente sopra
 
         // a questo punto serve un redirect alla show che mostrerà la risorsa appena creata
-        return redirect()->route('departments.show', $d);
+        return redirect()->route('admin.departments.show', $d);
     }
 
     /**
@@ -97,7 +98,7 @@ class DepartmentController extends Controller
         // si può mettere direttamente l'istanza senza il find or fail, ma bisogna dare al parametro lo stesso nome che ha nella rotta
         // $department = Department::findOrFail($id);
         // dd($department);
-        return view('departments.show', compact('department'));
+        return view('admin.departments.show', compact('department'));
     }
 
     /**
@@ -110,7 +111,7 @@ class DepartmentController extends Controller
     {
         // $department = Department::findOrFail($id);
         // dd($department);
-        return view('departments.edit', compact('department'));
+        return view('admin.departments.edit', compact('department'));
     }
 
     /**
@@ -134,7 +135,7 @@ class DepartmentController extends Controller
         ]);
         $department->update($params);
 
-        return redirect()->route('departments.show', $department);
+        return redirect()->route('admin.departments.show', $department);
     }
 
     /**
@@ -151,6 +152,6 @@ class DepartmentController extends Controller
         // oppure:
         // Department::destroy($id);
 
-        return redirect()->route('departments.index');
+        return redirect()->route('admin.departments.index');
     }
 }

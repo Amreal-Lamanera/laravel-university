@@ -4,32 +4,32 @@
 
     <div class="container">
         <h1>
-            {{ $student->name }} {{ $student->surname }}
+            {{ $department->name }}
         </h1>
         <h3>
-            {{ $student->registration_number}}
+            {{ $department->head_of_department}}
         </h3>
         <div>
             <ul>
                 <li>
-                    <span>CF:</span> {{ $student->fiscal_code }}
+                    <span>Indirizzo:</span> {{ $department->address }}
                 </li>
                 <li>
-                    <span>Email:</span> {{ $student->email }}
+                    <span>Email:</span> {{ $department->email }}
                 </li>
                 <li>
-                    <span>Nato il:</span> {{ $student->date_of_birth }}
+                    <span>Telefono:</span> {{ $department->phone }}
                 </li>
                 <li>
-                    <span>Iscritto dal:</span> {{ $student->enrolment_date }}
+                    <span>Sito Web:</span> {{ $department->website }}
                 </li>
             </ul>
 
             <div class="container">
-                <a href=" {{ route('students.edit', $student) }} ">Modifica dati studente</a>
+                <a href=" {{ route('admin.departments.edit', $department) }} ">Modifica dipartimento</a>
 
                 {{-- per fare una delete serve un form in cui specificare il metodo DELETE, altrimenti finirei nella pagina show --}}
-                <form action="{{ route('students.destroy', $student) }}" method="POST">
+                <form action="{{ route('admin.departments.destroy', $department) }}" method="POST">
                     @csrf
                     @method('DELETE')
 

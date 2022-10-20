@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
 })->name('homepage');
 
 // // CRUD: create read update delete
@@ -48,7 +48,7 @@ Route::get('/', function () {
 // Laravel ci mette a disposizione uno strumento per non scrivere ogni volta (per ogni ririsorsa) tutte queste rotte - altrimenti andrebbe scritta tutta questa roba per ogni tabella del DB praticamente: departments, courses, teachers, students...
 
 // con questo metodo laravel capesce che vogliamo creare il metodo crud e crea tutte le rotte che avevamo fatto precedentemente a mano
-Route::resource('departments', 'DepartmentController');
+// Route::resource('departments', 'DepartmentController');
 
 // php artisan route:list => per verificare che ci siano tutte le rotte
 
@@ -62,4 +62,18 @@ Route::resource('departments', 'DepartmentController');
 
 // docu: https://laravel.com/docs/7.x/controllers#resource-controllers
 
-Route::resource('students', 'StudentController');
+// Route::resource('students', 'StudentController');
+
+// si può escludere delle rotte facendo ad esempio:
+// Auth::routes(['register' => false]);
+Auth::routes();
+
+Route::middleware('auth')
+    ->prefix('admin')
+    ->namespace('Admin')
+    ->name('admin.')
+    ->group(function () {
+        Route::resource('departments', 'DepartmentController');
+        Route::resource('students', 'StudentController');
+        Route::get('/home', 'HomeController@index')->name('home');
+    });

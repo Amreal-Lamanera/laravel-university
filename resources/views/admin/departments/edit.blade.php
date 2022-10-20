@@ -6,13 +6,15 @@
     <section>
         <div class="container">
             <h2>
-                Crea un nuovo dipartimento
+                Modifica dipartimento
             </h2>
         </div>
 
         <div class="container">
-            <form action=" {{ route('departments.store') }} " method="POST">
+            <form action=" {{ route('admin.departments.update', $department) }} " method="POST">
                 @csrf
+                @method('PUT')
+
                 {{--
                     csrf è un tipo di attacco che potrebbe subire l'applicativo: cross-site request forgery.
                     Questo comando aggiunge una sorta di token che verifica automaticamente la sessione di chi naviga.
@@ -30,7 +32,7 @@
                         id="name"
                         placeholder="Nome del dipartimento"
                         {{-- posso usare l'helper old per ricordarmi il valore inserito in caso di errore, che mi rimanda alla pagina, così da non perderlo --}}
-                        value="{{ old('name') }}"
+                        value="{{ old('name', $department->name) }}"
                     >
                     {{-- SE voglio un errore singolo --}}
                     @error('name')
@@ -47,7 +49,7 @@
                         name="head_of_department"
                         id="head-of-department"
                         placeholder="Nome capo dipartimento"
-                        value="{{ old('head_of_department') }}"
+                        value="{{ old('head_of_department', $department->head_of_department) }}"
                     >
                 </p>
                 {{-- SE voglio un errore singolo --}}
@@ -64,7 +66,7 @@
                         name="email"
                         id="email"
                         placeholder="Email del dipartimento"
-                        value="{{ old('email') }}"
+                        value="{{ old('email', $department->email) }}"
                     >
                 </p>
                 {{-- SE voglio un errore singolo --}}
@@ -81,7 +83,7 @@
                         name="address"
                         id="address"
                         placeholder="Indirizzo del dipartimento"
-                        value="{{ old('address') }}"
+                        value="{{ old('address', $department->address) }}"
                     >
                 </p>
                 {{-- SE voglio un errore singolo --}}
@@ -98,7 +100,7 @@
                         name="phone"
                         id="phone"
                         placeholder="Numero di telefono"
-                        value="{{ old('phone') }}"
+                        value="{{ old('phone', $department->phone) }}"
                     >
                 </p>
                 {{-- SE voglio un errore singolo --}}
@@ -115,7 +117,7 @@
                         name="website"
                         id="website"
                         placeholder="Sito del dipartimento"
-                        value="{{ old('website') }}"
+                        value="{{ old('website', $department->website) }}"
                     >
                 </p>
                 {{-- SE voglio un errore singolo --}}
@@ -128,6 +130,17 @@
                 </p>
 
             </form>
+
+            {{-- QUI: gestione errore validate --}}
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         </div>
     </section>
 
